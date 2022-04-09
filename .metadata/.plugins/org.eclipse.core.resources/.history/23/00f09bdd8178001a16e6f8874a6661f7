@@ -1,0 +1,67 @@
+public class Sort {
+
+	public static class QuickSort<T extends Comparable<T>> {
+		public static <T> int quickSort(T[] numbers, int low, int high) 
+        {
+            T pivot = numbers[high];
+            int i = (low - 1);
+            for(int j = low; j < high; j++) 
+            {
+                if(((String) numbers[j]).compareTo((String) pivot) < 0) 
+                {
+                    i++;
+                    
+                    T temp = numbers[i];
+                    numbers[i] = numbers[j];
+                    numbers[j] = temp;
+                }
+            }
+            //swapping numbers in the array
+            T temp = numbers[i+1];
+            numbers[i+1] = numbers[high];
+            numbers[high] = temp;
+            
+            return i + 1;
+            
+        }
+
+		public static <T extends Comparable<T>> T[] sort(T[] array, int a, int b) 
+		{
+			if(array.length !=2) 
+	        {
+	        	return array;
+	        }
+	        else if(array[0].compareTo(array[1]) > 0) 
+	        {
+	        	T temp = array[1];
+	            array[1] = array[0];
+	            array[0] = temp;
+	        }
+			
+	        else if (a < b) 
+		        {
+			        int i = a, j = b;
+			        T x = array[(i + j) / 2];
+	
+			        do {
+			        while (array[i].compareTo(x) < 0) i++;
+			        while (x.compareTo(array[j]) < 0) j--;
+	
+			        if ( i <= j) {
+			        T tmp = array[i];
+			        array[i] = array[j];
+			        array[j] = tmp;
+			        i++;
+			        j--;
+		        }
+
+		 } while (i <= j);
+
+		   sort(array, a, j);
+		   sort(array, i, b);
+		 }
+		      return array;
+		        
+		}
+	}
+}

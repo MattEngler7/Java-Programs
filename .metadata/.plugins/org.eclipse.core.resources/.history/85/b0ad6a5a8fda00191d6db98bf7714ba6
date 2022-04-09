@@ -1,0 +1,56 @@
+import java.util.Stack;
+
+import javax.swing.JOptionPane;
+
+public class Main {
+
+public static void main(String[] args) {
+
+String word = getInputWord();
+
+	if(checkPalindrome(word))
+	{
+		JOptionPane.showMessageDialog(null,"The given Word is a palindrome");  
+	}
+
+	else
+	{
+		JOptionPane.showMessageDialog(null,"The given Word is not palindrome");  
+	}
+
+}
+	//outside of main field
+	private static String getInputWord() {
+
+		String wordInput = JOptionPane.showInputDialog("Enter a word: ");
+
+		return wordInput;
+
+	}
+
+	public static boolean checkPalindrome(String str){
+
+		Stack<String> myStack = new Stack<String>();
+
+		//loops through and puts all the characters into a stack
+		for(int i=0;i<str.length();i++)
+
+			myStack.push(str.charAt(i)+"");
+
+		String reverse="";
+
+		
+		//pops all the characters from the stack to make a string then reverses the string
+		while(!myStack.isEmpty()){
+
+			reverse+=myStack.pop();
+
+		}
+
+		//checks the string that has been reversed to match original string
+		return reverse.equals(str);
+
+	}
+
+}
+
