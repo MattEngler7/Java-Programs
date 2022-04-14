@@ -1,0 +1,142 @@
+public class Appointment {
+      
+       private String name;
+       private String reason;
+       private int time;
+      
+      
+       public Appointment(String name,String reason, int time)
+       {
+             this.name = name;
+             this.reason = reason;
+             this.time = time;
+       }
+      
+       public String getName()
+       {
+             return name;
+       }
+      
+       public String getReason()
+       {
+             return reason;
+       }
+      
+       public int getTime()
+       {
+             return time;
+       }
+      
+       public String toString()
+       {
+             return("Name: "+name+" Reason : "+reason+" Time : "+time);
+       }
+}
+//end of Appointment.java
+//AppointmentQueue.java
+import java.util.Arrays;
+public class AppointmentQueue {
+      
+       private Appointment appointments[];
+       private int num_appointments;
+      
+       public AppointmentQueue()
+       {
+             appointments=new Appointment[5];
+             num_appointments= 0;
+       }
+      
+       public void push(Appointment appointment)
+       {
+             if(isFull())
+             {
+                    appointments = Arrays.copyOf(appointments, num_appointments+1);
+             }
+            
+            
+             for(int i=0;i<num_appointments;i++)
+             {
+                    if(appointments[i].getTime() > appointment.getTime())
+                    {
+                           for(int j=num_appointments;j>i;j--)
+                                 appointments[j] = appointments[j-1];
+                                
+                           appointments[i] = appointment;
+                           num_appointments++;
+                           return;
+                    }
+             }
+            
+             appointments[num_appointments] = appointment;
+             num_appointments++;
+       }
+      
+       public Appointment pop()
+       {
+             if(isEmpty())
+                    return null;
+             Appointment appointment = appointments[0];
+             for(int i=1;i<num_appointments;i++)
+             {
+                    appointments[i-1] = appointments[i];
+             }
+            
+             num_appointments--;
+             return appointment;
+       }
+      
+       public Appointment peek()
+       {
+             Appointment appointment = null;
+             if(!isEmpty())
+                    appointment = appointments[0];
+             return appointment;
+       }
+      
+       public boolean isEmpty()
+       {
+             return(num_appointments == 0);
+       }
+      
+       public boolean isFull()
+       {
+             return(num_appointments == appointments.length);
+       }
+}
+//end of AppointmentQueue.java
+// Assignment6.java
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+public class Assignment6{
+       public static void main(String[] args) throws FileNotFoundException {
+            
+             String filename = "appointments.txt";
+             String line;
+             AppointmentQueue queue = new AppointmentQueue();
+             Scanner scan = new Scanner(new File(filename));
+             while(scan.hasNextLine())
+             {
+                    line = scan.nextLine();
+                    String details[] =line.split(",");
+                    queue.push(new Appointment(details[0],details[1],Integer.parseInt(details[2])));
+             }
+            
+             scan.close();
+             scan = new Scanner(System.in);
+             String name;
+             while(!queue.isEmpty())
+             {
+                    System.out.print("Enter your name : ");
+                    name = scan.nextLine();
+                    Appointment next = queue.pop();
+                    if(next.getName().equalsIgnoreCase(name))
+                           System.out.println("DMV will help you now");
+                    else
+                           System.out.println("You are not next in the queue. Wait for you turn to come");
+                   
+             }
+            
+             scan.close();
+       }
+}

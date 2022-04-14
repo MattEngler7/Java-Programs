@@ -1,0 +1,5 @@
+78, Jared, 6ft, 220lb, 8sec
+45, Kevin, 6ft, 260lb, 6sec
+1, Matt, 6ft, 185lb, 3sec
+508, Rick, 5ft, 190lb, 15sec
+23, Jose, 5ft, 240lb, 5sec
